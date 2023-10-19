@@ -1,7 +1,19 @@
-import express from 'express';
+const mongoose = require('mongoose');
+const express = require('express');
+const dotenv = require('dotenv');
 
-const app = express();
+dotenv.config();
+const app = express(); // Define the Express app in the global scope
 
-app.listen(3000 ,() =>{
-    console.log("Server listineing on 3000")
+mongoose
+  .connect(process.env.MONGO)
+  .then(() => {
+    console.log('Connected to MongoDB');
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+app.listen(3000, () => {
+  console.log('Server listening on 3000');
 });
